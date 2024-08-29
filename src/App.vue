@@ -1,25 +1,31 @@
 <template>
- 
+  <div>
+    <MenuComponent :openCloseForm="openCloseForm" :showForm="showForm"></MenuComponent>
+    <TweetForm :showForm="showForm"></TweetForm>
+  </div>
+
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MenuComponent from './components/MenuComponent.vue';
+import TweetForm from './components/TweetForm.vue';
+import useFormTweet from './hooks/useFormTweet';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MenuComponent,
+    TweetForm
+  },
+  setup(){
+    return{
+      ...useFormTweet()
+    };
   }
+  
 }
 </script>
 
 <style lang="scss">
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+
 </style>
