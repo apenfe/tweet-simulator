@@ -1,15 +1,16 @@
 <template>
   <div class="tweet-form container" :class="{open: showForm}"> <!--Se establece la clase open si showform es true-->
-    <form>
-        <input class="form-control" placeholder="Tu nombre">
+    <form @submit.prevent="sendTweet">
+        <input class="form-control" placeholder="Tu nombre" v-model="username">
         <textarea 
             class="form-control" 
             rows="3" 
-            placeholder="Escibe tu Tweet">
+            placeholder="Escibe tu Tweet"
+            v-model="tweet">
         </textarea>
         <button 
             class="btn btn-primary" 
-            type="button">
+            type="submit">
             Enviar Tweet
         </button>
     </form>
@@ -17,9 +18,40 @@
 </template>
 
 <script>
+
+import {ref} from "vue";
+import {saveTweetApi} from "../api/tweet";
+
 export default {
     props:{
         showForm: Boolean,
+        reloadTweets: Function,
+        openCloseForm: Function
+    },
+    setup(props){
+
+        let username = ref("");
+        let tweet = ref("");
+
+        const sendTweet = () => {
+
+            if(!tweet.value || !username.value){
+                return;
+            }else{
+                saveTweetApi(tweet.value, username.value);
+                tweet.value = "";
+                username.value = "";
+                props.reloadTweets();
+                props.openCloseForm();
+            }
+            
+        }
+
+        return{
+            sendTweet,
+            username,
+            tweet
+        };
     }
 
 }
