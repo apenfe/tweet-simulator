@@ -2,7 +2,7 @@
   <div>
     <MenuComponent :openCloseForm="openCloseForm" :showForm="showForm"></MenuComponent>
     <TweetForm :showForm="showForm" :reloadTweets="reloadTweets" :openCloseForm="openCloseForm" ></TweetForm>
-    <TweetList :tweets="tweets"></TweetList>
+    <TweetList :tweets="tweets" :reloadTweets="reloadTweets"></TweetList>
   </div>
 
 </template>
